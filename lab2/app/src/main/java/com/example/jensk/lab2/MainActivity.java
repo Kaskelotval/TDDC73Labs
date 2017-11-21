@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
         // get the listview
         expListView = (ExpandableListView) findViewById(R.id.lvExp);
         searchBar = findViewById(R.id.searchBar);
-        oldParent = 0;
+        oldParent = -1;
         oldChild = 0;
         searchBar.setText("/");
         // preparing list data
@@ -69,25 +69,37 @@ public class MainActivity extends Activity {
             public void afterTextChanged(Editable editable) {
                 String path = editable.toString();
                 Boolean matchFound = false;
-                for(int l = 0; l<expListView.getCount();l++)
-                {
-                    if(expListView.isGroupExpanded(l)){
-                    }
-                }
+                int expandedGroupComp = 0;
+
                 if(path.length()>2){
                     if(compareLink(path.toLowerCase())==0) //No match
                     {
-
                         searchBar.setBackgroundColor(Color.RED);
                         Log.d("result: " , "No match");
                         matchFound = false;
-
                     }
                     else if(compareLink(path.toLowerCase())==1) //partial match
                     {
                         searchBar.setBackgroundColor(Color.TRANSPARENT);
-                        if(path.endsWith("/"))
+                        if(path.endsWith("/") && oldParent != parent)
+                        {
+                            for(int k = 0; k<3;k++)
+                            {
+                                if(oldParent>-1)
+                                    expListView.getChildAt(oldChild+oldParent+1).setBackgroundColor(Color.TRANSPARENT );
+
+                                expListView.collapseGroup(k);
+                            }
                             expListView.expandGroup(parent);
+
+                        }
+                        else if(parent == oldParent)
+                        {
+                            expListView.expandGroup(parent);
+                            if(oldParent>-1)
+                                expListView.getChildAt(oldChild+oldParent+1).setBackgroundColor(Color.GREEN );
+
+                        }
                         Log.d("result: " , " Partial match");
                         matchFound = false;
                     }
@@ -96,7 +108,8 @@ public class MainActivity extends Activity {
                         searchBar.setBackgroundColor(Color.TRANSPARENT);
                         for(int k = 0; k<3;k++)
                         {
-                            expListView.getChildAt(oldChild+oldParent+1).setBackgroundColor(Color.TRANSPARENT );
+                            if(oldParent>-1)
+                                expListView.getChildAt(oldChild+oldParent+1).setBackgroundColor(Color.TRANSPARENT );
                             expListView.collapseGroup(k);
                         }
                         expListView.expandGroup(parent);
@@ -133,9 +146,9 @@ public class MainActivity extends Activity {
                 if(pathString.length()>= p.length())
                 {
                     subPath = pathString.substring(0,p.length()).toLowerCase();
-                    Log.d("p ", p);
-                    Log.d("pathString ", pathString);
-                    Log.d("subPath ", subPath);
+                    //Log.d("p ", p);
+                    //Log.d("pathString ", pathString);
+                    //Log.d("subPath ", subPath);
 
                     parent = i;
                     child = j;
