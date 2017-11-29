@@ -61,6 +61,21 @@ public class MainActivity extends Activity {
                 return false;
             }
         });
+
+        expListView.setOnGroupClickListener(new OnChildClickListener() {
+
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View v,
+                                        int groupPosition, int childPosition, long id) {
+                searchBar.setText("/"
+                        + listDataHeader.get(groupPosition)
+                        + "/"
+                        + listDataChild.get(
+                        listDataHeader.get(groupPosition)).get(
+                        childPosition));
+                return false;
+            }
+        });
         final TextWatcher textWatcher = new TextWatcher() {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
@@ -68,15 +83,12 @@ public class MainActivity extends Activity {
             @Override
             public void afterTextChanged(Editable editable) {
                 String path = editable.toString();
-                Boolean matchFound = false;
-                int expandedGroupComp = 0;
 
                 if(path.length()>2){
                     if(compareLink(path.toLowerCase())==0) //No match
                     {
                         searchBar.setBackgroundColor(Color.RED);
                         Log.d("result: " , "No match");
-                        matchFound = false;
                     }
                     else if(compareLink(path.toLowerCase())==1) //partial match
                     {
@@ -101,7 +113,6 @@ public class MainActivity extends Activity {
 
                         }
                         Log.d("result: " , " Partial match");
-                        matchFound = false;
                     }
                     else //full match
                     {
@@ -117,12 +128,10 @@ public class MainActivity extends Activity {
                         Log.d("result: " , "Match");
                         oldParent = parent;
                         oldChild = child;
-                        matchFound = true;
                     }
                 }
             }
         };
-
         searchBar.addTextChangedListener(textWatcher);
 
     }
