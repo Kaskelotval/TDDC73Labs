@@ -25,12 +25,13 @@ public class WordSearcher extends LinearLayout {
             LayoutParams.MATCH_PARENT,
             LayoutParams.WRAP_CONTENT);
 
+
     public WordSearcher(Context context){
         super(context);
-
         editText = new EditText(context);
         editText.setMaxLines(1);
         editText.setInputType(TYPE_CLASS_TEXT);
+
 
         //setLayoutParams(matchAndWrap);
         editText.setLayoutParams(matchAndWrap);
