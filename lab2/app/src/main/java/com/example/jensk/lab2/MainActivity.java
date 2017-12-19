@@ -62,20 +62,6 @@ public class MainActivity extends Activity {
             }
         });
 
-        expListView.setOnGroupClickListener(new OnChildClickListener() {
-
-            @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                searchBar.setText("/"
-                        + listDataHeader.get(groupPosition)
-                        + "/"
-                        + listDataChild.get(
-                        listDataHeader.get(groupPosition)).get(
-                        childPosition));
-                return false;
-            }
-        });
         final TextWatcher textWatcher = new TextWatcher() {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
