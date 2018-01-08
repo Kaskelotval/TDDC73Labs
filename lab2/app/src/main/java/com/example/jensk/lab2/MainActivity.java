@@ -73,6 +73,8 @@ public class MainActivity extends Activity {
                 if(path.length()>2){
                     if(compareLink(path.toLowerCase())==0) //No match
                     {
+                        if(oldParent>-1)
+                            expListView.getChildAt(oldChild+oldParent+1).setBackgroundColor(Color.TRANSPARENT );
                         searchBar.setBackgroundColor(Color.RED);
                         Log.d("result: " , "No match");
                     }

@@ -75,11 +75,12 @@ public class WordSuggestions extends View{
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        //check if name is valid
         if (names == null || names.length == 0) {
             setLayoutParams(zeroSize);
             return;
         }
-        int height = 15 + textHeight * names.length;
+        int height = 15 + textHeight * names.length; //size of box depending on lenght of words
         setLayoutParams(new FrameLayout.LayoutParams(width, height));
         canvas.drawRect(0, 0, width, height,background);
 

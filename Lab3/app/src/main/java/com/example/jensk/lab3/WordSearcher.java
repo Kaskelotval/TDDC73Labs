@@ -49,6 +49,7 @@ public class WordSearcher extends LinearLayout {
             public void afterTextChanged(Editable s) {
                 //Find suggestions
                 if(s.length() > 0) {
+                    //Run the JSONTask
                     new JSONTask(WordSearcher.this).execute(
                             "http://getnames-getnames.a3c1.starter-us-west-1.openshiftapps.com/getnames/" + maxId + "/" + s
                     );

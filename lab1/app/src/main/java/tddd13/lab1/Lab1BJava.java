@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import static android.text.InputType.TYPE_CLASS_TEXT;
+import static android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
+import static android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD;
 
 public class Lab1BJava extends AppCompatActivity {
 
@@ -26,10 +31,10 @@ public class Lab1BJava extends AppCompatActivity {
         layout.addView(createNewRow("Namn", new EditText(this)));
 
         // - - - Lösen - - - //
-        layout.addView(createNewRow("Lösenord", new EditText(this)));
+        layout.addView(createNewRow("Lösenord", new EditText(this), "pass"));
 
         // - - - Epost - - - //
-        layout.addView(createNewRow("Epost",new EditText(this)));
+        layout.addView(createNewRow("Epost",new EditText(this), "email"));
 
         // - - - Ålder - - - //
         layout.addView(createNewRow("Ålder", new SeekBar(this)));
@@ -51,7 +56,11 @@ public class Lab1BJava extends AppCompatActivity {
         setContentView(layout);
     }
 
-    private LinearLayout createNewRow(String text, View input) {
+    private LinearLayout createNewRow(String text, View input)
+    {
+        return createNewRow(text,input,"");
+    }
+    private LinearLayout createNewRow(String text, View input, String Type) {
 
         //Parameters for linear layout
         LinearLayout.LayoutParams parameters = new LinearLayout.LayoutParams(
@@ -74,10 +83,23 @@ public class Lab1BJava extends AppCompatActivity {
         );
         textView.setText(text);
 
+        EditText editText = new EditText(this);
+        if(input instanceof EditText)
+        {
+            editText = (EditText) input;
+
+            if(Type == "pass")
+                editText.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD);
+            else if(Type == "email")
+                editText.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        }
+
+
+
         //Input (Right)
         input.setLayoutParams(parameters);
         tempLayout.addView(textView);
-        tempLayout.addView(input);
+        tempLayout.addView(editText);
 
         return tempLayout;
     }
