@@ -17,7 +17,7 @@ class JSONTask extends AsyncTask<String, Void, String> {
     private WordSearcher wordSearcher;
 
     //AsyncTask extension to handle UI threads
-    //Both doInBack and onPostExecute are called automaticlly.
+    //Both doInBack and onPostExecute are called automatically.
 
 
     public JSONTask(WordSearcher wordSearcher)
@@ -33,18 +33,19 @@ class JSONTask extends AsyncTask<String, Void, String> {
 
         try {
             URL url = new URL(params[0]);
-            connection = (HttpURLConnection) url.openConnection();
+            connection = (HttpURLConnection) url.openConnection(); //connect to web service
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
             String input;
             while((input=in.readLine()) != null){
-                result += input;
+                result += input; //add input to result
             }
 
         } catch (IOException e) {
             System.out.println(e);
         } finally {
             if (connection != null) {
+                //disconnect from web service
                 connection.disconnect();
             }
         }
@@ -59,7 +60,7 @@ class JSONTask extends AsyncTask<String, Void, String> {
             int id = json.getInt("id");
             JSONArray names = json.getJSONArray("result");
 
-            //Only update if the ID is the latest
+            //Only update if the latest id in the json object is larger or equal to the latest one.
                 if(id>=wordSearcher.getCurrId())
                 {
                     wordSearcher.setCurrId(id);

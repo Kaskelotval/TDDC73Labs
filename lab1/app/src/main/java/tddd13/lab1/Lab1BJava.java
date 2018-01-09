@@ -84,6 +84,11 @@ public class Lab1BJava extends AppCompatActivity {
         textView.setText(text);
 
         EditText editText = new EditText(this);
+
+        //Input (Right)
+        input.setLayoutParams(parameters);
+        tempLayout.addView(textView);
+
         if(input instanceof EditText)
         {
             editText = (EditText) input;
@@ -92,14 +97,11 @@ public class Lab1BJava extends AppCompatActivity {
                 editText.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD);
             else if(Type == "email")
                 editText.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+            tempLayout.addView(editText);
         }
+        else
+            tempLayout.addView(input);
 
-
-
-        //Input (Right)
-        input.setLayoutParams(parameters);
-        tempLayout.addView(textView);
-        tempLayout.addView(editText);
 
         return tempLayout;
     }

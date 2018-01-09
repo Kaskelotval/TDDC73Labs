@@ -17,10 +17,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 public class WordSuggestions extends View{
-
+    //Draws the box of suggestions.
     protected String[] names;
     protected WordSearcher wordsearcher;
-    protected int textSize = 45, textHeight, textWidth, width, maxSuggestions = 10;
+    protected int textSize = 45, textHeight, textWidth, width, maxSuggestions = 10; //maxSuggestions is N - from lab instructions
     protected Paint textPaint, background;
 
     protected FrameLayout.LayoutParams zeroSize = new FrameLayout.LayoutParams(1, 1);
