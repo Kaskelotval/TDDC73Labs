@@ -124,45 +124,43 @@ public class MainActivity extends Activity {
 
     }
 
+    //This function returns:
+    //if no match return 0
+    //if partial match 1
+    //if full match 2
     private int compareLink(String p)
     {
         String pathString;
         String subPath;
 
-        char[] input = p.toLowerCase().toCharArray();
-        char[] path;
-
-        Log.d("size ",  ""+listDataHeader.size());
-
-
+        //loop through all the headers
         for(int i = 0; i < listDataHeader.size(); i++)
         {
+            //loop through all the children in the group
             for(int j = 0; j<listDataChild.get(listDataHeader.get(i)).size(); j++)
             {
+                //Fetch the string that is group i and child j
                 pathString = "/" + listDataHeader.get(i) + "/" + listDataChild.get(listDataHeader.get(i)).get(j);
-                if(pathString.length()>= p.length())
+                if(pathString.length()>= p.length()) //if pathString is shorter than p we don't need to compare
                 {
                     subPath = pathString.substring(0,p.length()).toLowerCase();
-                    //Log.d("p ", p);
-                    //Log.d("pathString ", pathString);
-                    //Log.d("subPath ", subPath);
 
-                    parent = i;
-                    child = j;
+                    parent = i; //set new parent to i
+                    child = j;  //set new child to j
+
+                    //if paths are identical return 2
                     if(subPath.length()==pathString.length() && subPath.equals(p))
                         return 2;
 
+                    //if paths are partly identical (ie if we sent in a group and half of a child name return 1
                     else if(subPath.equals(p))
                         return 1;
                 }
             }
         }
 
+        //No match, return 0
         return 0;
-
-        //if no match return 0
-        //if partial match 1
-        //if full match 2
     }
 
     /*
